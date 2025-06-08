@@ -31,7 +31,7 @@ export default forwardRef(function TextInput(
         <input
             {...props}
             type={type}
-            className={`form-control border border-primary ${className}`}
+            className={`form-control border border-primary text-primary ${className}`}
             ref={localRef}
         />
     );
