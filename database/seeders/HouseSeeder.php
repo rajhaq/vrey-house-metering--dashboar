@@ -19,9 +19,8 @@ class HouseSeeder extends Seeder
             $this->call(UserSeeder::class);
         }
 
-        // Create 2 houses per user
         User::all()->each(function ($user) {
-            House::factory()->count(2)->create(['user_id' => $user->id]);
+            House::factory()->count(1)->create(['user_id' => $user->id]);
         });
     }
 }
