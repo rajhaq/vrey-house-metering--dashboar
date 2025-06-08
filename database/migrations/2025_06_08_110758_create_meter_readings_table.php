@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('meter_id')->comment('FK to meters');
             $table->timestamp('timestamp')->comment('Start time of the reading (e.g., 15 min interval)');
-            $table->float('consumtion')->comment('Energy consumed during the interval');
+            $table->float('consumption')->comment('Energy consumed during the interval');
             $table->string('unit')->default('kWh');
             $table->string('quality_flag')->default('TRUE');
 

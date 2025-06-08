@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             MeterSeeder::class,
         ]);
+        $this->call(MeterReadingSeeder::class);
+
         
     }
 }

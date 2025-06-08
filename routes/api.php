@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HouseController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\MeterReadingController;
+use App\Http\Controllers\DashboardController;
 
+Route::apiResource('dashboard', DashboardController::class);
 Route::apiResource('houses', HouseController::class);
 Route::apiResource('units', UnitController::class);
 Route::apiResource('readings', MeterReadingController::class);
