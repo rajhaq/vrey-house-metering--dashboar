@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import DashboardClient from '@/Api/DashboardClient';
+import DashboardClient from '@/api/dashboard';
 import Table from '@/Components/Table';
 import Modal from '@/Components/Modal';
 
@@ -23,8 +23,8 @@ interface DateGroupedData {
 }
 
 const sortOptions = [
-    { label: 'Date Latest to Old', value: 'desc' },
-    { label: 'Date Old to Latest', value: 'asc' },
+    { label: 'Newest First', value: 'desc' },
+    { label: 'Oldest First', value: 'asc' },
 ];
 
 export default function DemoHouseCard() {

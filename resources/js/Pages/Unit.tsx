@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import UnitClient from '@/Api/UnitClient';
+import UnitClient from '@/api/UnitClient';
 import Table from '@/Components/Table';
 import { Unit } from '@/types/unit';
 
@@ -89,7 +89,7 @@ export default function Units() {
                             </select>
                         </div>
                     </div>
-
+                    {/* Loading Spinner */}
                     {loading ? (
                         <div className="text-center py-5">
                             <div

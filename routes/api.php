@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 Route::apiResource('dashboard', DashboardController::class);
 Route::apiResource('houses', HouseController::class);
 Route::apiResource('units', UnitController::class);
-Route::apiResource('readings', MeterReadingController::class);
+Route::apiResource('meter_readings', MeterReadingController::class);
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');

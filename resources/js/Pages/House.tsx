@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import HouseClient from '@/Api/HouseClient';
+import HouseClient from '@/api/house';
 import Table from '@/Components/Table';
 import { House } from '@/types/house';
 
@@ -72,7 +72,7 @@ export default function Houses() {
                             </select>
                         </div>
                     </div>
-
+                    {/* Loading Spinner */}
                     {loading ? (
                         <div className="text-center py-5">
                             <div

@@ -67,7 +67,7 @@ export default function Guest({ children }: Props) {
             <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light pt-4">
                 <main
                     className="card shadow-sm w-100"
-                    style={{ maxWidth: '400px' }}
+                    style={{ maxWidth: '800px' }}
                 >
                     <div className="card-body p-4">{children}</div>
                 </main>

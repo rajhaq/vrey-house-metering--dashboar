@@ -14,6 +14,11 @@ return [
     |
     */
 
+
+    'meter_api' => [
+        'url' => env('METER_API_URL'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

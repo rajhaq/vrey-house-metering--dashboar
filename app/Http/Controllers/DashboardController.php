@@ -9,6 +9,62 @@ use App\Models\House;
 
 class DashboardController extends Controller
 {
+
+    private function groupReadings($rawData)
+    {
+        $grouped = [];
+
+        foreach ($rawData as $row) {
+            $readingDate = $row->reading_date;
+            $unit = $row->unit_name;
+
+            if (!isset($grouped[$readingDate])) {
+                $grouped[$readingDate] = [];
+            }
+
+            if (!isset($grouped[$readingDate][$unit])) {
+                $grouped[$readingDate][$unit] = [
+                    'unit' => $unit,
+                    'market_meter' => ['location_id' => null, 'total_kwh' => 0],
+                    'metering_meter' => ['location_id' => null, 'total_kwh' => 0],
+                    'solar_consumption_kwh' => 0,
+                ];
+            }
+
+            if ($row->meter_type === 'market_location') {
+                $grouped[$readingDate][$unit]['market_meter'] = [
+                    'location_id' => $row->location_id,
+                    'total_kwh' => round($row->total_kwh, 2),
+                ];
+            } elseif ($row->meter_type === 'metering_location') {
+                $grouped[$readingDate][$unit]['metering_meter'] = [
+                    'location_id' => $row->location_id,
+                    'total_kwh' => round($row->total_kwh, 2),
+                ];
+            }
+
+            $market = $grouped[$readingDate][$unit]['market_meter']['total_kwh'];
+            $metering = $grouped[$readingDate][$unit]['metering_meter']['total_kwh'];
+
+            $grouped[$readingDate][$unit]['solar_consumption_kwh'] = round($market - $metering, 2);
+        }
+
+        return $grouped;
+    }
+
+    private function formatGroupedResult(array $grouped)
+    {
+        $result = [];
+
+        foreach ($grouped as $dateKey => $units) {
+            $result[] = [
+                'date' => $dateKey,
+                'units' => array_values($units),
+            ];
+        }
+
+        return $result;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -42,54 +98,9 @@ class DashboardController extends Controller
     
         $rawData = $query->orderBy('reading_date', $sortOrder)->get();
     
-        $grouped = [];
-    
-        foreach ($rawData as $row) {
-            $readingDate = $row->reading_date;
-            $unit = $row->unit_name;
-    
-            if (!isset($grouped[$readingDate])) {
-                $grouped[$readingDate] = [];
-            }
-    
-            if (!isset($grouped[$readingDate][$unit])) {
-                $grouped[$readingDate][$unit] = [
-                    'unit' => $unit,
-                    'market_meter' => ['location_id' => null, 'total_kwh' => 0],
-                    'metering_meter' => ['location_id' => null, 'total_kwh' => 0],
-                    'solar_consumption_kwh' => 0,
-                ];
-            }
-    
-            if ($row->meter_type === 'market_location') {
-                $grouped[$readingDate][$unit]['market_meter'] = [
-                    'location_id' => $row->location_id,
-                    'total_kwh' => round($row->total_kwh, 2),
-                ];
-            } elseif ($row->meter_type === 'metering_location') {
-                $grouped[$readingDate][$unit]['metering_meter'] = [
-                    'location_id' => $row->location_id,
-                    'total_kwh' => round($row->total_kwh, 2),
-                ];
-            }
-    
-            $grouped[$readingDate][$unit]['solar_consumption_kwh'] =
-                round(
-                    $grouped[$readingDate][$unit]['market_meter']['total_kwh'] -
-                    $grouped[$readingDate][$unit]['metering_meter']['total_kwh'],
-                    2
-                );
-        }
-    
-        $result = [];
-    
-        foreach ($grouped as $dateKey => $units) {
-            $result[] = [
-                'date' => $dateKey,
-                'units' => array_values($units),
-            ];
-        }
-    
+        $grouped = $this->groupReadings($rawData);
+        $result = $this->formatGroupedResult($grouped);
+
         return response()->json([
             'house_id' => $houseId,
             'results' => $result,

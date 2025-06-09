@@ -1,9 +1,9 @@
-import AxiosClient from './AxiosClient';
+import axiosClient from './axiosClient';
 import { Unit } from '@/types/unit';
 
 const UnitClient = {
     getAll: async (): Promise<Unit[]> => {
-        const response = await AxiosClient.get<Unit[]>('/units');
+        const response = await axiosClient.get<Unit[]>('/units');
         return response.data;
     },
 };

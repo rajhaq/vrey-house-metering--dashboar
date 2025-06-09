@@ -1,8 +1,8 @@
-import AxiosClient from './AxiosClient';
+import axiosClient from './axiosClient';
 
 const DashboardClient = {
     getSummary: (houseId: number, date: string, sortBy: string) =>
-        AxiosClient.get('/dashboard', {
+        axiosClient.get('/dashboard', {
             params: {
                 house_id: houseId,
                 date,
