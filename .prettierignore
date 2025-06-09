@@ -1,0 +1,16 @@
+# Laravel directories to ignore
+app/
+bootstrap/
+config/
+database/
+public/
+resources/views/
+routes/
+storage/
+tests/
+vendor/
+
+# Other ignores
+node_modules/
+build/
+dist/

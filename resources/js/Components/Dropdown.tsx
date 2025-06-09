@@ -33,7 +33,11 @@ const Dropdown = ({ children }: PropsWithChildren) => {
 
 const Trigger = ({ children }: PropsWithChildren) => {
     const { toggleOpen } = useContext(DropDownContext);
-    return <div onClick={toggleOpen} style={{ cursor: 'pointer' }}>{children}</div>;
+    return (
+        <div onClick={toggleOpen} style={{ cursor: 'pointer' }}>
+            {children}
+        </div>
+    );
 };
 
 const Content = ({ children }: PropsWithChildren) => {
@@ -43,7 +47,10 @@ const Content = ({ children }: PropsWithChildren) => {
     // Close dropdown if clicked outside
     useEffect(() => {
         const handler = (e: MouseEvent) => {
-            if (contentRef.current && !contentRef.current.contains(e.target as Node)) {
+            if (
+                contentRef.current &&
+                !contentRef.current.contains(e.target as Node)
+            ) {
                 setOpen(false);
             }
         };
@@ -71,10 +78,7 @@ const DropdownLink = ({
     ...props
 }: InertiaLinkProps & { className?: string }) => {
     return (
-        <Link
-            {...props}
-            className={`dropdown-item ${className}`}
-        >
+        <Link {...props} className={`dropdown-item ${className}`}>
             {children}
         </Link>
     );

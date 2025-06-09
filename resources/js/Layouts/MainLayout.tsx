@@ -15,7 +15,7 @@ interface PageProps {
     };
 }
 
-export default function Guest({ children }: Props) {
+export default function MainLayout({ children }: Props) {
     const { auth } = usePage<PageProps>().props;
 
     return (
@@ -51,10 +51,7 @@ export default function Guest({ children }: Props) {
                                 <Link href="/login" className="btn">
                                     Login
                                 </Link>
-                                <Link
-                                    href="/register"
-                                    className="btn btn-primary"
-                                >
+                                <Link href="/login" className="btn btn-primary">
                                     Register
                                 </Link>
                             </>
@@ -64,14 +61,9 @@ export default function Guest({ children }: Props) {
             </header>
 
             {/* Main Content */}
-            <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-light pt-4">
-                <main
-                    className="card shadow-sm w-100"
-                    style={{ maxWidth: '400px' }}
-                >
-                    <div className="card-body p-4">{children}</div>
-                </main>
-            </div>
+            <main className="py-4">
+                <div className="container">{children}</div>
+            </main>
         </div>
     );
 }

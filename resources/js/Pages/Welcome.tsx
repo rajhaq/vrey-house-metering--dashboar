@@ -1,16 +1,16 @@
-import React from "react";
-import Guest from "@/Layouts/GuestLayout";
+import React from 'react';
+import Guest from '@/Layouts/GuestLayout';
 
 export default function Home() {
     return (
         <Guest>
             <div
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
                 }}
             >
                 <h1>Welcome</h1>

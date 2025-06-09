@@ -27,15 +27,15 @@ export default function ForgotPassword({ status }: { status?: string }) {
             </div>
 
             {status && (
-                <div className="alert alert-success small mb-3">
-                    {status}
-                </div>
+                <div className="alert alert-success small mb-3">{status}</div>
             )}
 
             <form onSubmit={submit}>
                 {/* Email input */}
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label">
+                        Email
+                    </label>
                     <TextInput
                         id="email"
                         type="email"
@@ -50,7 +50,10 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 {/* Submit button */}
                 <div className="d-flex justify-content-end">
-                    <PrimaryButton className="btn btn-primary" disabled={processing}>
+                    <PrimaryButton
+                        className="btn btn-primary"
+                        disabled={processing}
+                    >
                         Email Password Reset Link
                     </PrimaryButton>
                 </div>

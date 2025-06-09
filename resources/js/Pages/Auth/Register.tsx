@@ -116,7 +116,10 @@ export default function Register() {
                         Already registered?
                     </Link>
 
-                    <PrimaryButton className="btn btn-primary" disabled={processing}>
+                    <PrimaryButton
+                        className="btn btn-primary"
+                        disabled={processing}
+                    >
                         Register
                     </PrimaryButton>
                 </div>

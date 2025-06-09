@@ -54,7 +54,10 @@ export default function Login({
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="text-danger mt-1" />
+                    <InputError
+                        message={errors.email}
+                        className="text-danger mt-1"
+                    />
                 </div>
 
                 {/* Password */}
@@ -71,7 +74,10 @@ export default function Login({
                         onChange={(e) => setData('password', e.target.value)}
                     />
 
-                    <InputError message={errors.password} className="text-danger mt-1" />
+                    <InputError
+                        message={errors.password}
+                        className="text-danger mt-1"
+                    />
                 </div>
 
                 {/* Remember Me */}

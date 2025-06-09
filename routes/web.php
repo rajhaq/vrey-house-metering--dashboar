@@ -22,6 +22,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/houses', function () {
         return Inertia::render('House');
     })->name('houses');
+
+    Route::get('/units', function () {
+        return Inertia::render('Unit');
+    })->name('units');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

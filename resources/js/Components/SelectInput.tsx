@@ -12,7 +12,7 @@ export default forwardRef(function SelectInput(
         isFocused = false,
         ...props
     }: SelectHTMLAttributes<HTMLSelectElement> & { isFocused?: boolean },
-    ref
+    ref,
 ) {
     const localRef = useRef<HTMLSelectElement>(null);
 

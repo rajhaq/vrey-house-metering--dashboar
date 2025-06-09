@@ -1,71 +1,66 @@
-import {
-    Dialog,
-    DialogPanel,
-    Transition,
-    TransitionChild,
-} from '@headlessui/react';
-import { PropsWithChildren } from 'react';
+import { useEffect } from 'react';
 
 export default function Modal({
-    children,
     show = false,
-    maxWidth = '2xl',
+    title = 'Notice',
+    message,
     closeable = true,
     onClose = () => {},
-}: PropsWithChildren<{
+}: {
     show: boolean;
-    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    title?: string;
+    message: string;
     closeable?: boolean;
-    onClose: CallableFunction;
-}>) {
-    const close = () => {
-        if (closeable) {
-            onClose();
-        }
-    };
+    onClose: () => void;
+}) {
+    useEffect(() => {
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && closeable) onClose();
+        };
 
-    const maxWidthClass = {
-        sm: 'sm:max-w-sm',
-        md: 'sm:max-w-md',
-        lg: 'sm:max-w-lg',
-        xl: 'sm:max-w-xl',
-        '2xl': 'sm:max-w-2xl',
-    }[maxWidth];
+        if (show) {
+            document.body.classList.add('modal-open');
+            document.addEventListener('keydown', handleKey);
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+
+        return () => {
+            document.body.classList.remove('modal-open');
+            document.removeEventListener('keydown', handleKey);
+        };
+    }, [show, closeable, onClose]);
+
+    if (!show) return null;
 
     return (
-        <Transition show={show} leave="duration-200">
-            <Dialog
-                as="div"
-                id="modal"
-                className="fixed inset-0 z-50 flex transform items-center overflow-y-auto px-4 py-6 transition-all sm:px-0"
-                onClose={close}
-            >
-                <TransitionChild
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                >
-                    <div className="absolute inset-0 bg-gray-500/75" />
-                </TransitionChild>
-
-                <TransitionChild
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    enterTo="opacity-100 translate-y-0 sm:scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                >
-                    <DialogPanel
-                        className={`mb-6 transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:mx-auto sm:w-full ${maxWidthClass}`}
-                    >
-                        {children}
-                    </DialogPanel>
-                </TransitionChild>
-            </Dialog>
-        </Transition>
+        <div
+            className="modal d-block"
+            tabIndex={-1}
+            role="dialog"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+        >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">{title}</h5>
+                        <button
+                            type="button"
+                            className="btn-close"
+                            onClick={onClose}
+                            aria-label="Close"
+                        />
+                    </div>
+                    <div className="modal-body">
+                        <p>{message}</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button className="btn btn-secondary" onClick={onClose}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
