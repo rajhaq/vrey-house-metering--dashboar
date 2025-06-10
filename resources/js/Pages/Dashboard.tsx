@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DashboardClient from '@/api/dashboard';
 import Table from '@/Components/Table';
 import Modal from '@/Components/Modal';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
+import InputError from '@/Components/InputError';
 
 interface DashboardUnit {
     unit: string;
@@ -79,18 +83,19 @@ export default function DemoHouseCard() {
                     {/* Filter Controls */}
                     <div className="row mb-4">
                         <div className="col-md-4">
-                            <label className="form-label">Select Date</label>
-                            <input
+                            <InputLabel htmlFor="date" value="Select Date" />
+                            <TextInput
+                                id="date"
                                 type="date"
-                                className="form-control"
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
                             />
+                            <InputError message="" />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Sort By</label>
-                            <select
-                                className="form-select"
+                            <InputLabel htmlFor="sortBy" value="Sort By" />
+                            <SelectInput
+                                id="sortBy"
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
                             >
@@ -102,7 +107,8 @@ export default function DemoHouseCard() {
                                         {option.label}
                                     </option>
                                 ))}
-                            </select>
+                            </SelectInput>
+                            <InputError message="" />
                         </div>
                     </div>
 

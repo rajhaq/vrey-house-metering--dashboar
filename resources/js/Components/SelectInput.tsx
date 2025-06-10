@@ -29,7 +29,7 @@ export default forwardRef(function SelectInput(
     return (
         <select
             {...props}
-            className={`form-select border border-primary ${className}`}
+            className={`form-select border border-primary text-primary ${className}`}
             ref={localRef}
         />
     );

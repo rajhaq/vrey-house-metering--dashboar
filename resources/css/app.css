@@ -126,6 +126,9 @@ text-align: center;
 .form-control.border-primary {
   border-color: var(--color-primary) !important;
 }
+.form-select.border-primary {
+  border-color: var(--color-primary) !important;
+}
 
 .mt-1 { margin-top: 0.25rem; }
 .mt-2 { margin-top: 0.5rem; }

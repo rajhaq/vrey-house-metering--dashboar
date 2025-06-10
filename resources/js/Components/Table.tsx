@@ -46,7 +46,7 @@ export default function Table({
                                         ? formatters[key]!(raw, row)
                                         : raw;
                                     const cellClass = highlight.includes(key)
-                                        ? 'fw-semibold text-success'
+                                        ? 'fw-semibold'
                                         : '';
                                     return (
                                         <td

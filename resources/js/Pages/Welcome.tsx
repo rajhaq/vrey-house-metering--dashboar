@@ -3,6 +3,10 @@ import Guest from '@/Layouts/GuestLayout';
 import DashboardClient from '@/api/dashboard';
 import Table from '@/Components/Table';
 import Modal from '@/Components/Modal';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
+import InputError from '@/Components/InputError';
 
 interface DashboardUnit {
     unit: string;
@@ -68,69 +72,62 @@ export default function Home() {
 
     return (
         <Guest>
-            <div className="card mb-4">
-                <div className="card-body">
-                    {/* Filter Controls */}
-                    <div className="row mb-4">
-                        <div className="col-md-4">
-                            <label className="form-label">Select Date</label>
-                            <input
-                                type="date"
-                                className="form-control"
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                            />
-                        </div>
-                        <div className="col-md-4">
-                            <label className="form-label">Sort By</label>
-                            <select
-                                className="form-select"
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                            >
-                                {sortOptions.map((option) => (
-                                    <option
-                                        key={option.value}
-                                        value={option.value}
-                                    >
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
-
-                    {/* Loading Spinner */}
-                    {loading ? (
-                        <div className="text-center py-5">
-                            <div
-                                className="spinner-border text-primary"
-                                role="status"
-                            />
-                        </div>
-                    ) : (
-                        dataByDate.map(({ date, units }) => (
-                            <div key={date} className="mb-5">
-                                <h5 className="mb-3">{date}</h5>
-                                <Table
-                                    headers={headers}
-                                    data={units}
-                                    formatters={{
-                                        'market_meter.total_kwh': (val) =>
-                                            val.toFixed(2),
-                                        'metering_meter.total_kwh': (val) =>
-                                            val.toFixed(2),
-                                        solar_consumption_kwh: (val) =>
-                                            val.toFixed(2),
-                                    }}
-                                    highlight={['solar_consumption_kwh']}
-                                />
-                            </div>
-                        ))
-                    )}
+            {/* Filter Controls */}
+            <div className="row mb-4">
+                <div className="col-md-4">
+                    <InputLabel htmlFor="date" value="Select Date" />
+                    <TextInput
+                        id="date"
+                        type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
+                    <InputError message="" />
+                </div>
+                <div className="col-md-4">
+                    <InputLabel htmlFor="sortBy" value="Sort By" />
+                    <SelectInput
+                        id="sortBy"
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value)}
+                    >
+                        {sortOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </SelectInput>
+                    <InputError message="" />
                 </div>
             </div>
 
+            {/* Loading Spinner */}
+            {loading ? (
+                <div className="text-center py-5">
+                    <div
+                        className="spinner-border text-primary"
+                        role="status"
+                    />
+                </div>
+            ) : (
+                dataByDate.map(({ date, units }) => (
+                    <div key={date} className="mb-5">
+                        <h5 className="mb-3">{date}</h5>
+                        <Table
+                            headers={headers}
+                            data={units}
+                            formatters={{
+                                'market_meter.total_kwh': (val) =>
+                                    val.toFixed(2),
+                                'metering_meter.total_kwh': (val) =>
+                                    val.toFixed(2),
+                                solar_consumption_kwh: (val) => val.toFixed(2),
+                            }}
+                            highlight={['solar_consumption_kwh']}
+                        />
+                    </div>
+                ))
+            )}
             {/* Error Modal */}
             <Modal
                 show={isError}

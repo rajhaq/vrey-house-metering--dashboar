@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import UnitClient from '@/api/UnitClient';
+import UnitClient from '@/api/unit';
 import Table from '@/Components/Table';
 import { Unit } from '@/types/unit';
 
